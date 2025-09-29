@@ -5,8 +5,8 @@ A webapp for Hades II players to plan, share, and discuss builds with anonymous 
 
 ## Tech Stack
 - **Frontend**: Next.js 15, React 19, Tailwind CSS, shadcn/ui
-- **Backend**: Effect-TS, Prisma ORM
-- **Database**: Self-hosted PostgreSQL (VPS)
+- **Backend**: Prisma ORM
+- **Database**: Self-hosted PostgreSQL (VPS) ✅
 - **Authentication**: better-auth
 - **Package Manager**: Bun
 
@@ -15,22 +15,21 @@ A webapp for Hades II players to plan, share, and discuss builds with anonymous 
 ## Phase 1: Project Foundation & Setup
 
 ### 1.1 Environment & Dependencies
-- [ ] Install PostgreSQL on VPS (Docker recommended)
-- [ ] Configure PostgreSQL for production use
+- [x] Install PostgreSQL on VPS (Docker recommended)
+- [x] Configure PostgreSQL for production use
 - [ ] Set up database backups and monitoring
-- [ ] Configure SSL and security settings
-- [ ] Install and configure Prisma with self-hosted PostgreSQL
+- [x] Configure SSL and security settings
+- [x] Install and configure Prisma with self-hosted PostgreSQL
 - [ ] Install better-auth and configure authentication
-- [ ] Set up environment variables (.env.local)
-- [ ] Configure Prisma schema for initial data models
-- [ ] Set up database migrations
+- [x] Set up environment variables (.env.local)
+- [x] Configure Prisma schema for initial data models
+- [x] Set up database migrations
 
 ### 1.2 Project Structure & Configuration
 - [ ] Create proper folder structure for components, pages, and services
 - [ ] Configure shadcn/ui components registry
-- [ ] Set up Effect-TS service layer architecture
 - [ ] Configure TypeScript paths and imports
-- [ ] Set up proper error handling with Effect-TS
+- [ ] Set up proper error handling
 
 ---
 
@@ -78,7 +77,7 @@ A webapp for Hades II players to plan, share, and discuss builds with anonymous 
 ## Phase 4: Core Build System
 
 ### 4.1 Build Data Management
-- [ ] Create Effect-TS services for build operations
+- [ ] Create services for build operations
 - [ ] Implement build creation (anonymous and authenticated)
 - [ ] Implement build reading and validation
 - [ ] Implement build updating and deletion
@@ -97,7 +96,7 @@ A webapp for Hades II players to plan, share, and discuss builds with anonymous 
 ## Phase 5: Game Data Integration
 
 ### 5.1 Game Data Services
-- [ ] Create Effect-TS services for game data
+- [ ] Create services for game data
 - [ ] Implement weapon data fetching
 - [ ] Implement boon data fetching
 - [ ] Implement aspect data fetching
