@@ -1,0 +1,80 @@
+---
+description: This rule ensures that when working with Zod (v4) documentation or having questions about Zod products, the AI assistant will utilize the available MCP (Model Context Protocol) tools to provide accurate and up-to-date information.
+alwaysApply: false
+---
+# Zod (v4) Integration Rules
+
+## When to Apply
+- Working with Zod (v4) documentation
+- Troubleshooting Zod implementation issues
+- Seeking guidance on Zod features and best practices
+- Need for current Zod API information
+
+## Available MCP Tools
+
+### 1. Zod (v4) Documentation Search
+Use this tool to search through:
+- Official Zod documentation
+- GitHub issues and discussions
+- Release notes and changelogs
+- Help center articles
+
+### 2. Ask Zod (v4) Expert
+Use this tool for:
+- Specific product questions
+- API implementation details
+- Troubleshooting assistance
+- Best practice recommendations
+
+## Usage Guidelines
+When the user asks questions about Zod (v4) or needs help with Zod-related implementations, the AI should:
+
+1. **Automatically detect** when Zod tools are relevant
+2. **Utilize the appropriate MCP tool** based on the query type
+3. **Provide comprehensive answers** using the latest Zod documentation
+4. **Offer practical examples** and implementation guidance
+
+## Benefits
+- Access to current Zod (v4) documentation
+- Expert-level guidance for complex Zod scenarios
+- Up-to-date information on Zod features and changes
+- Consistent and reliable Zod-related assistance# Zod (v4) Integration Rules
+
+## Description
+This rule ensures that when working with Zod (v4) documentation or having questions about Zod products, the AI assistant will utilize the available MCP (Model Context Protocol) tools to provide accurate and up-to-date information.
+
+## When to Apply
+- Working with Zod (v4) documentation
+- Troubleshooting Zod implementation issues
+- Seeking guidance on Zod features and best practices
+- Need for current Zod API information
+
+## Available MCP Tools
+
+### 1. Zod (v4) Documentation Search
+Use this tool to search through:
+- Official Zod documentation
+- GitHub issues and discussions
+- Release notes and changelogs
+- Help center articles
+
+### 2. Ask Zod (v4) Expert
+Use this tool for:
+- Specific product questions
+- API implementation details
+- Troubleshooting assistance
+- Best practice recommendations
+
+## Usage Guidelines
+When the user asks questions about Zod (v4) or needs help with Zod-related implementations, the AI should:
+
+1. **Automatically detect** when Zod tools are relevant
+2. **Utilize the appropriate MCP tool** based on the query type
+3. **Provide comprehensive answers** using the latest Zod documentation
+4. **Offer practical examples** and implementation guidance
+
+## Benefits
+- Access to current Zod (v4) documentation
+- Expert-level guidance for complex Zod scenarios
+- Up-to-date information on Zod features and changes
+- Consistent and reliable Zod-related assistance
