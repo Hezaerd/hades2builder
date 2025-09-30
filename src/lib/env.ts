@@ -3,8 +3,12 @@ import { z } from "zod";
 const envSchema = z.object({
   // App
   APP_ENV: z.enum(["development", "production"]),
+
   // Auth
   BETTER_AUTH_SECRET: z.string(),
+  BETTER_AUTH_URL: z.string(),
+  DISCORD_CLIENT_ID: z.string(),
+  DISCORD_CLIENT_SECRET: z.string(),
 
   // Logging
   LOG_LEVEL: z.enum(["debug", "info", "warn", "error", "fatal", "trace"]),
