@@ -1,5 +1,4 @@
 import { register as registerEnv } from "@/lib/env";
-import { logger } from "./lib/logger";
 
 export async function register() {
   await registerEnv();
@@ -8,6 +7,4 @@ export async function register() {
     await require("pino");
     await require("next-logger");
   }
-
-  logger.debug({ magic: "hats" }, "a log line");
 }

@@ -1,6 +1,6 @@
 import pino, { type Logger } from "pino";
 
-const devTransport: pino.TransportSingleOptions = {
+const prettyTransport: pino.TransportSingleOptions = {
   target: "pino-pretty",
   options: {
     colorize: true,
@@ -9,17 +9,25 @@ const devTransport: pino.TransportSingleOptions = {
   },
 };
 
-const prodTransport: pino.TransportSingleOptions = {
+const lokiTransport: pino.TransportSingleOptions = {
   target: "pino-loki",
   options: {
     host: process.env.LOG_LOKI_URL,
+
+    labels: { app: "next-app" },
   },
 };
 
-const options: pino.LoggerOptions = {
-  level: process.env.LOG_LEVEL,
-  transport:
-    process.env.NODE_ENV === "development" ? devTransport : prodTransport,
+const devOptions: pino.LoggerOptions = {
+  level: process.env.LOG_LEVEL || "debug",
+  transport: prettyTransport,
 };
 
-export const logger: Logger = pino(options);
+const prodOptions: pino.LoggerOptions = {
+  level: process.env.LOG_LEVEL || "info",
+  transport: lokiTransport,
+};
+
+export const logger: Logger = pino(
+  process.env.NODE_ENV === "development" ? devOptions : prodOptions,
+);

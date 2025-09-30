@@ -8,13 +8,9 @@ const envSchema = z.object({
 
   // Logging
   LOG_LEVEL: z.enum(["debug", "info", "warn", "error", "fatal", "trace"]),
-  LOG_PRETTY: z.coerce.boolean(),
 
   // Loki
   LOG_LOKI_URL: z.string(),
-  LOG_LOKI_USERNAME: z.string().optional(),
-  LOG_LOKI_PASSWORD: z.string().optional(),
-  LOG_LOKI_ENABLED: z.coerce.boolean().optional(),
 });
 
 export const validateEnv = () => envSchema.safeParse(process.env);
