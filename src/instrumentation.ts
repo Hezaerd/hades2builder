@@ -1,19 +1,13 @@
-import type { z } from "zod";
-import { constructEnvErrorMessages, validateEnv } from "@/lib/env";
-
-const constructErrorFromZod = (errors: z.ZodError) => {
-  const errorMessages = constructEnvErrorMessages(errors);
-  return new Error(
-    `\n\n❌ Error in loading environment variables:\n${errorMessages.join("\n")}\n`,
-  );
-};
+import { register as registerEnv } from "@/lib/env";
+import { logger } from "./lib/logger";
 
 export async function register() {
-  const envValidationResult = validateEnv();
+  await registerEnv();
 
-  if (!envValidationResult.success) {
-    throw constructErrorFromZod(envValidationResult.error);
+  if (process.env.NODE_ENV === "development") {
+    await require("pino");
+    await require("next-logger");
   }
 
-  console.info("✅ Environment variables loaded successfully");
+  logger.debug({ magic: "hats" }, "a log line");
 }

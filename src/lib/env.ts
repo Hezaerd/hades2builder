@@ -1,11 +1,20 @@
 import { z } from "zod";
 
 const envSchema = z.object({
-  APP_ENV: z
-    .enum(["development", "production"])
-    .describe("The environment of the application is running in"),
+  // App
+  APP_ENV: z.enum(["development", "production"]),
+  // Auth
+  BETTER_AUTH_SECRET: z.string(),
 
-  BETTER_AUTH_SECRET: z.string().describe("The secret key for better-auth"),
+  // Logging
+  LOG_LEVEL: z.enum(["debug", "info", "warn", "error", "fatal", "trace"]),
+  LOG_PRETTY: z.coerce.boolean(),
+
+  // Loki
+  LOG_LOKI_URL: z.string(),
+  LOG_LOKI_USERNAME: z.string().optional(),
+  LOG_LOKI_PASSWORD: z.string().optional(),
+  LOG_LOKI_ENABLED: z.coerce.boolean().optional(),
 });
 
 export const validateEnv = () => envSchema.safeParse(process.env);
@@ -24,8 +33,6 @@ export async function register() {
       `\n\n❌ Error in loading environment variables:\n${errorMessages.join("\n")}\n`,
     );
   }
-
-  console.info("✅ Environment variables loaded successfully");
 }
 
 declare global {
