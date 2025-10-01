@@ -34,14 +34,11 @@ export default function DashboardPage() {
             </p>
           </div>
           <div className="flex items-center gap-2">
-            <Link href="/builds/new">
+            <Link href="/dashboard?tab=builds">
               <Button>New Build</Button>
             </Link>
             <Link href="#">
               <Button variant="outline">Import Save</Button>
-            </Link>
-            <Link href="#">
-              <Button variant="ghost">Docs</Button>
             </Link>
           </div>
         </div>

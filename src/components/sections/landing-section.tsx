@@ -32,7 +32,7 @@ export function LandingSection() {
           </AspectRatio>
 
           <Button asChild size="lg">
-            <Link href="/builds/new">Plan a new build</Link>
+            <Link href="/dashboard?tab=builds">Plan a new build</Link>
           </Button>
         </div>
       </div>
