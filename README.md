@@ -1,36 +1,103 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Hades 2 Build Planner
 
-## Getting Started
+A modern, intuitive build planner for Hades 2 that helps you theorycraft, optimize, and share devastating builds. Plan your weapons, charms, and boons to dominate your next run through the underworld.
 
-First, run the development server:
+![Hades 2 Build Planner](public/images/preview-dark.png)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## ✨ Features
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- **🛡️ Complete Database** - Access every weapon, boon, upgrade, and aspect in Hades 2
+- **📤 Easy Sharing** - Share builds with a single link or export to images
+- **⚡ Lightning Fast** - Built with modern tech for instant loading
+- **👥 No Account Required** - Use almost all features without signing up
+- **🎨 Beautiful Interface** - Gorgeous, intuitive design that works on any device
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🚀 Quick Start
 
-## Learn More
+### Prerequisites
 
-To learn more about Next.js, take a look at the following resources:
+- [Bun](https://bun.sh) (recommended) or Node.js 18+
+- PostgreSQL database
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Installation
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/yourusername/hades2builder.git
+   cd hades2builder
+   ```
 
-## Deploy on Vercel
+2. **Install dependencies**
+   ```bash
+   bun install
+   ```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+3. **Set up environment variables**
+   ```bash
+   cp .env.example .env.local
+   ```
+   Fill in your database URL and other required environment variables.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+4. **Set up the database**
+   ```bash
+   bun run db:migrate
+   bun run db:generate
+   ```
+
+5. **Start the development server**
+   ```bash
+   bun run dev
+   ```
+
+6. **Open your browser**
+   Navigate to [http://localhost:3000](http://localhost:3000)
+
+## 🛠️ Tech Stack
+
+- **Framework**: Next.js 15 with App Router
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS
+- **Database**: PostgreSQL with Prisma ORM
+- **Authentication**: Better Auth
+- **UI Components**: Radix UI + shadcn/ui
+- **State Management**: Zustand
+- **Animations**: Framer Motion
+- **Package Manager**: Bun
+
+## 🎮 How to Use
+
+1. **Start Building** - Click "Start Building" to access the build planner
+2. **Select Your Setup** - Choose weapons, charms, and boons
+3. **Optimize** - Use the smart suggestions to find powerful combinations
+4. **Share** - Export your build or share with a link
+5. **Join Community** - Connect with other builders on Discord
+
+## 🤝 Contributing
+
+We welcome contributions! Please see our [Contributing Guidelines](CONTRIBUTING.md) for details.
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+## 📝 License
+
+This project is licensed under the GNU Affero General Public License v3.0 - see the [LICENSE](LICENSE) file for details.
+
+## 🙏 Acknowledgments
+
+- Supergiant Games for creating the amazing Hades 2
+- The Hades community for inspiration and feedback
+- All contributors who help improve this tool
+
+## 📞 Support
+
+- **Discord**: [Join our community](https://discord.gg/CG6CJRkcdm)
+- **Issues**: [GitHub Issues](https://github.com/hezaerd/hades2builder/issues)
+
+---
+
+**Happy planning! 🔥⚔️**
