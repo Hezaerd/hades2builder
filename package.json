@@ -27,6 +27,7 @@
     "next": "15.5.4",
     "next-logger": "^5.0.1",
     "next-themes": "^0.4.6",
+    "nuqs": "^2.7.0",
     "pino": "^9.12.0",
     "pino-loki": "^2.6.0",
     "radix-ui": "^1.4.3",
@@ -39,7 +40,8 @@
     "sonner": "^2.0.7",
     "tailwind-merge": "^3.3.1",
     "vaul": "^1.1.2",
-    "zod": "^4.1.11"
+    "zod": "^4.1.11",
+    "zustand": "^5.0.8"
   },
   "devDependencies": {
     "@biomejs/biome": "2.2.0",

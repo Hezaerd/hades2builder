@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { NuqsProvider } from "@/components/providers/nuqs-provider";
 import { ThemeProvider } from "@/components/providers/theme-provider";
 import "./globals.css";
 import { Navbar } from "@/components/nav/navbar";
@@ -34,8 +35,10 @@ export default function RootLayout({
           defaultTheme="light"
           disableTransitionOnChange
         >
-          <Navbar />
-          {children}
+          <NuqsProvider>
+            <Navbar />
+            {children}
+          </NuqsProvider>
         </ThemeProvider>
       </body>
     </html>

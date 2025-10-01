@@ -2,6 +2,7 @@
 
 import { LogOut, Settings, User } from "lucide-react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import {
@@ -35,7 +36,12 @@ const links = [
 ];
 
 export function Navbar() {
+  const pathname = usePathname();
   const { data: session } = authClient.useSession();
+  const hideNavbar = pathname?.startsWith("/dashboard") === true;
+  if (hideNavbar) {
+    return null;
+  }
   const isAuthenticated = session?.user && !session.user.isAnonymous;
 
   const handleSignIn = async () => {
