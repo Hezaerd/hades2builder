@@ -1,6 +1,6 @@
 "use client";
 
-import { ExternalLink } from "lucide-react";
+import { ExternalLink, Github } from "lucide-react";
 import Link from "next/link";
 import { ThemeToggle } from "./theme-toggle";
 
@@ -71,6 +71,17 @@ export function Footer() {
                 >
                   Community
                 </Link>
+              </li>
+              <li>
+                <a
+                  href="https://github.com/Hezaerd/hades2builder"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-muted-foreground hover:text-foreground transition-colors inline-flex items-center gap-1"
+                >
+                  GitHub
+                  <Github className="h-3 w-3" />
+                </a>
               </li>
             </ul>
           </div>
