@@ -34,8 +34,8 @@ export function HeroSection() {
   return (
     <section className="relative overflow-hidden min-h-screen flex items-center">
       {/* Background gradient effect */}
-      <div className="absolute inset-0 -z-10 bg-gradient-to-br from-primary/5 via-transparent to-accent/5" />
-      <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_30%_20%,oklch(0.7_0.15_250)_0%,transparent_50%)] opacity-10 dark:opacity-20" />
+      <div className="absolute inset-0 -z-10 bg-gradient-to-br from-primary/30 via-primary/10 to-accent/30" />
+      <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_30%_20%,oklch(0.7_0.15_250)_0%,transparent_50%)] opacity-40 dark:opacity-50" />
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
