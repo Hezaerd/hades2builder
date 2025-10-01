@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { NuqsProvider } from "@/components/providers/nuqs-provider";
+import { QueryProvider } from "@/components/providers/query-provider";
 import { ThemeProvider } from "@/components/providers/theme-provider";
+import { Toaster } from "@/components/ui/sonner";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -31,10 +33,14 @@ export default function RootLayout({
       >
         <ThemeProvider
           attribute="class"
-          defaultTheme="light"
+          defaultTheme="dark"
+          enableSystem={false}
           disableTransitionOnChange
         >
-          <NuqsProvider>{children}</NuqsProvider>
+          <QueryProvider>
+            <NuqsProvider>{children}</NuqsProvider>
+            <Toaster />
+          </QueryProvider>
         </ThemeProvider>
       </body>
     </html>
