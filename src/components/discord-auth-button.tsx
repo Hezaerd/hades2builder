@@ -6,6 +6,7 @@ import { FaDiscord } from "react-icons/fa";
 import type { buttonVariants } from "@/components/ui/button";
 import { Button } from "@/components/ui/button";
 import { authClient } from "@/lib/auth-client";
+import { cn } from "@/lib/utils";
 
 interface DiscordAuthButtonProps {
   variant?: VariantProps<typeof buttonVariants>["variant"];
@@ -42,7 +43,12 @@ export function DiscordAuthButton({
       disabled={isLoading}
       variant={variant}
       size={size}
-      className={className}
+      className={cn(
+        "group bg-[#5865F2] text-white hover:bg-[#4652C7]",
+        "focus-visible:ring-[#5865F2]/40",
+        className,
+      )}
+      aria-label="Sign in with Discord"
     >
       {isLoading ? (
         <>
@@ -72,7 +78,7 @@ export function DiscordAuthButton({
       ) : (
         <>
           <FaDiscord
-            className="mr-2 h-4 w-4"
+            className="mr-2 h-4 w-4 text-white"
             fill="currentColor"
             aria-hidden="true"
           />
