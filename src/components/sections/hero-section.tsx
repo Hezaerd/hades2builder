@@ -56,7 +56,7 @@ export function HeroSection() {
               </Badge>
               <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight">
                 <span className="block">Hades 2</span>
-                <span className="block bg-gradient-to-r from-primary via-purple-500 to-pink-500 bg-clip-text text-transparent dark:from-purple-400 dark:via-pink-400 dark:to-primary">
+                <span className="block bg-gradient-to-r from-gradient-from via-gradient-via to-gradient-to bg-clip-text text-transparent">
                   Build Planner
                 </span>
               </h1>
@@ -119,7 +119,7 @@ export function HeroSection() {
           >
             <div className="relative">
               {/* Decorative elements */}
-              <div className="absolute -inset-4 bg-gradient-to-r from-purple-500/20 to-pink-500/20 rounded-2xl blur-2xl" />
+              <div className="absolute -inset-4 bg-gradient-to-r from-gradient-from/20 to-gradient-to/20 rounded-2xl blur-2xl" />
 
               <AspectRatio
                 ratio={16 / 10}

@@ -37,6 +37,9 @@
   --color-popover: var(--popover);
   --color-card-foreground: var(--card-foreground);
   --color-card: var(--card);
+  --color-gradient-from: var(--gradient-from);
+  --color-gradient-via: var(--gradient-via);
+  --color-gradient-to: var(--gradient-to);
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
@@ -76,6 +79,11 @@
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
+
+  /* Gradient colors */
+  --gradient-from: oklch(0.6086 0.0785 50.74);
+  --gradient-via: oklch(0.7736 0.0891 59.73);
+  --gradient-to: oklch(0.879 0.1091 95.45);
 }
 
 .dark {
@@ -110,6 +118,11 @@
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.556 0 0);
+
+  /* Gradient colors - adjusted for dark mode */
+  --gradient-from: oklch(0.378 0.0552 193.3);
+  --gradient-via: oklch(0.4792 0.0887 166.3);
+  --gradient-to: oklch(0.6948 0.1697 150.22);
 }
 
 @layer base {
