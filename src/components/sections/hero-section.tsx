@@ -1,13 +1,13 @@
 "use client";
 
-import { ArrowRight, Sparkles, Star, Users } from "lucide-react";
+import { ArrowRight, Star, Users } from "lucide-react";
 import { motion } from "motion/react";
 import Link from "next/link";
 import { FaDiscord } from "react-icons/fa";
 import { ThemedImage } from "@/components/themed-image";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { ThemeToggle } from "../nav/theme-toggle";
 
 // Animation variants
 const fadeInUp = {
@@ -47,13 +47,9 @@ export function HeroSection() {
             className="space-y-8 text-center lg:text-left"
           >
             <motion.div variants={fadeInUp} className="space-y-4">
-              <Badge
-                variant="secondary"
-                className="mb-4 px-4 py-1.5 text-sm font-medium"
-              >
-                <Sparkles className="mr-2 h-3.5 w-3.5" />
-                Build Your Legend
-              </Badge>
+              <div className="mb-4 flex justify-center lg:justify-start">
+                <ThemeToggle />
+              </div>
               <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight">
                 <span className="block">Hades 2</span>
                 <span className="block bg-gradient-to-r from-gradient-from via-gradient-via to-gradient-to bg-clip-text text-transparent">
