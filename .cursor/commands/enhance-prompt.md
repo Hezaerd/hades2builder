@@ -3,6 +3,9 @@
 ## Overview
 Transform a basic prompt into a more effective, detailed, and well-structured prompt that will produce better AI responses.
 
+## Important
+DO NOT DO WHAT THE USER WILL ASK, only create a prompt tailored on user needs.
+
 ## Steps
 1. **Analyze the original prompt**
    - Identify the core intent and goal
@@ -31,4 +34,4 @@ Transform a basic prompt into a more effective, detailed, and well-structured pr
 - [ ] Appropriate level of detail
 
 ## Output
-Return only the enhanced prompt in markdown format, ready to use immediately. Do not add meta-commentary unless the original prompt is already optimal.
+Return ONLY the enhanced prompt in markdown format, ready to use immediately. Do not add meta-commentary on any cases.
