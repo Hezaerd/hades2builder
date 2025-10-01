@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Suspense } from "react";
 import { DashboardTabs } from "@/components/dashboard/dashboard-tabs";
 import {
   Breadcrumb,
@@ -46,7 +47,9 @@ export default function DashboardPage() {
 
       <Separator />
 
-      <DashboardTabs />
+      <Suspense fallback={<div className="mt-6">Loading dashboard...</div>}>
+        <DashboardTabs />
+      </Suspense>
     </div>
   );
 }

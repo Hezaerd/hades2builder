@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useQueryState } from "nuqs";
+import { Suspense } from "react";
 import { dashboardSidebarItems } from "@/components/dashboard/sidebar-config";
 import { DashboardSidebarUser } from "@/components/dashboard/sidebar-user";
 import {
@@ -70,7 +71,9 @@ export default function DashboardLayout({
           </div>
         </SidebarHeader>
         <SidebarSeparator />
-        <SidebarContentComponent />
+        <Suspense fallback={<div className="p-2">Loading...</div>}>
+          <SidebarContentComponent />
+        </Suspense>
         <SidebarFooter>
           <DashboardSidebarUser />
         </SidebarFooter>
