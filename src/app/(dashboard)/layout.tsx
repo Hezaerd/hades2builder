@@ -5,6 +5,7 @@ import { useQueryState } from "nuqs";
 import { Suspense } from "react";
 import { dashboardSidebarItems } from "@/components/dashboard/sidebar-config";
 import { DashboardSidebarUser } from "@/components/dashboard/sidebar-user";
+import { Separator } from "@/components/ui/separator";
 import {
   Sidebar,
   SidebarContent,
@@ -28,29 +29,46 @@ function SidebarContentComponent() {
     defaultValue: "overview",
   });
 
+  // Group items by category
+  const itemsByCategory = dashboardSidebarItems.reduce(
+    (acc, item) => {
+      if (!acc[item.category]) {
+        acc[item.category] = [];
+      }
+      acc[item.category].push(item);
+      return acc;
+    },
+    {} as Record<string, typeof dashboardSidebarItems>,
+  );
+
   return (
     <SidebarContent>
-      <SidebarGroup>
-        <SidebarGroupLabel>Menu</SidebarGroupLabel>
-        <SidebarGroupContent>
-          <SidebarMenu>
-            {dashboardSidebarItems.map((item) => (
-              <SidebarMenuItem key={item.tab}>
-                <SidebarMenuButton asChild isActive={activeTab === item.tab}>
-                  <Link
-                    href={item.href}
-                    className="flex items-center"
-                    onClick={() => setActiveTab(item.tab)}
-                  >
-                    {item.icon ? <item.icon className="size-4" /> : null}
-                    <span>{item.title}</span>
-                  </Link>
-                </SidebarMenuButton>
-              </SidebarMenuItem>
-            ))}
-          </SidebarMenu>
-        </SidebarGroupContent>
-      </SidebarGroup>
+      {Object.entries(itemsByCategory).map(([category, items]) => (
+        <SidebarGroup key={category}>
+          <SidebarGroupLabel className="capitalize">
+            {category}
+          </SidebarGroupLabel>
+          <Separator className="mb-2 bg-muted" />
+          <SidebarGroupContent>
+            <SidebarMenu>
+              {items.map((item) => (
+                <SidebarMenuItem key={item.tab}>
+                  <SidebarMenuButton asChild isActive={activeTab === item.tab}>
+                    <Link
+                      href={item.href}
+                      className="flex items-center"
+                      onClick={() => setActiveTab(item.tab)}
+                    >
+                      {item.icon ? <item.icon className="size-4" /> : null}
+                      <span>{item.title}</span>
+                    </Link>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+              ))}
+            </SidebarMenu>
+          </SidebarGroupContent>
+        </SidebarGroup>
+      ))}
     </SidebarContent>
   );
 }
@@ -64,13 +82,13 @@ export default function DashboardLayout({
     <SidebarProvider>
       <Sidebar collapsible="offcanvas" className="border-r">
         <SidebarHeader>
-          <div className="px-2 py-1.5">
+          <div className="flex h-14 items-center px-2">
             <Link href="/" className="text-base font-semibold">
               Hades 2 Builder
             </Link>
           </div>
         </SidebarHeader>
-        <SidebarSeparator />
+        <SidebarSeparator className="mx-0" />
         <Suspense fallback={<div className="p-2">Loading...</div>}>
           <SidebarContentComponent />
         </Suspense>

@@ -2,10 +2,14 @@
 
 import { useQueryState } from "nuqs";
 import { Tabs, TabsContent } from "@/components/ui/tabs";
-import { BuildsTab } from "./tabs/builds-tab";
-import { OverviewTab } from "./tabs/overview-tab";
-import { SettingsTab } from "./tabs/settings-tab";
-import { TemplatesTab } from "./tabs/templates-tab";
+import {
+  BuildsTab,
+  DatabaseTab,
+  OverviewTab,
+  SettingsTab,
+  TemplatesTab,
+  UsersTab,
+} from "./tabs";
 
 export function DashboardTabs() {
   const [activeTab, setActiveTab] = useQueryState("tab", {
@@ -29,6 +33,14 @@ export function DashboardTabs() {
 
       <TabsContent value="settings" className="mt-6">
         <SettingsTab />
+      </TabsContent>
+
+      <TabsContent value="users" className="mt-6">
+        <UsersTab />
+      </TabsContent>
+
+      <TabsContent value="database" className="mt-6">
+        <DatabaseTab />
       </TabsContent>
     </Tabs>
   );

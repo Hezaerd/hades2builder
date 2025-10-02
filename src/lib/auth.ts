@@ -1,6 +1,6 @@
 import { betterAuth } from "better-auth";
 import { prismaAdapter } from "better-auth/adapters/prisma";
-import { anonymous } from "better-auth/plugins";
+import { admin, anonymous } from "better-auth/plugins";
 import { prisma } from "@/lib/prisma";
 
 export const auth = betterAuth({
@@ -11,8 +11,7 @@ export const auth = betterAuth({
       clientSecret: process.env.DISCORD_CLIENT_SECRET,
     },
   },
-  plugins: [anonymous()],
+  plugins: [anonymous(), admin()],
 });
 
 export type Session = typeof auth.$Infer.Session;
-export type User = Session["user"];
