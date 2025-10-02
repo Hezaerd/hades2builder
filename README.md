@@ -24,7 +24,7 @@ A modern, intuitive build planner for Hades 2 that helps you theorycraft, optimi
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/yourusername/hades2builder.git
+   git clone https://github.com/hezaerd/hades2builder.git
    cd hades2builder
    ```
 
