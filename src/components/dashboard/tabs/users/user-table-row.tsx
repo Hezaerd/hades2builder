@@ -3,6 +3,7 @@ import { Ban, CheckCircle, Edit, UserX, XCircle } from "lucide-react";
 import Image from "next/image";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
 import { TableCell, TableRow } from "@/components/ui/table";
 import { UserRoleBadge } from "./user-role-badge";
 
@@ -26,21 +27,32 @@ export interface User {
 
 interface UserTableRowProps {
   user: User;
+  selected: boolean;
   onEditRole: (user: User) => void;
   onBanUser: (user: User) => void;
   onUnbanUser: (user: User) => void;
   isUnbanPending: boolean;
+  onSelectUser: (userId: string, selected: boolean) => void;
 }
 
 export function UserTableRow({
   user,
+  selected,
   onEditRole,
   onBanUser,
   onUnbanUser,
   isUnbanPending,
+  onSelectUser,
 }: UserTableRowProps) {
   return (
-    <TableRow>
+    <TableRow className={selected ? "bg-muted/50" : ""}>
+      <TableCell className="w-12">
+        <Checkbox
+          checked={selected}
+          onCheckedChange={(checked) => onSelectUser(user.id, checked === true)}
+          aria-label={`Select ${user.name}`}
+        />
+      </TableCell>
       <TableCell className="font-medium">
         <div className="flex items-center gap-2">
           {user.image && (

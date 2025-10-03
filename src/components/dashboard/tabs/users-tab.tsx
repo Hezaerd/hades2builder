@@ -13,6 +13,7 @@ import {
 import { authClient } from "@/lib/auth-client";
 import {
   BanUserDialog,
+  BulkActionsToolbar,
   EditRoleDialog,
   TablePagination,
   type User,
@@ -66,6 +67,10 @@ export function UsersTab() {
   const [banReason, setBanReason] = useState("");
   const [banExpiresIn, setBanExpiresIn] = useState("");
   const [newRole, setNewRole] = useState("");
+
+  // Selection state
+  const [selectedUsers, setSelectedUsers] = useState<Set<string>>(new Set());
+  const [isBulkOperation, setIsBulkOperation] = useState(false);
 
   const queryClient = useQueryClient();
 
@@ -142,6 +147,7 @@ export function UsersTab() {
 
   function handleBanUser(user: User) {
     setSelectedUser(user);
+    setIsBulkOperation(false);
     setBanDialogOpen(true);
   }
 
@@ -152,29 +158,182 @@ export function UsersTab() {
   function handleEditRole(user: User) {
     setSelectedUser(user);
     setNewRole(user.role || "user");
+    setIsBulkOperation(false);
     setRoleDialogOpen(true);
   }
 
-  function confirmBan() {
-    if (!selectedUser) return;
+  // Selection handlers
+  function handleSelectUser(userId: string, selected: boolean) {
+    setSelectedUsers((prev) => {
+      const newSet = new Set(prev);
+      if (selected) {
+        newSet.add(userId);
+      } else {
+        newSet.delete(userId);
+      }
+      return newSet;
+    });
+  }
 
+  function handleSelectAll(selected: boolean) {
+    if (selected && data?.users) {
+      setSelectedUsers(new Set(data.users.map((user) => user.id)));
+    } else {
+      setSelectedUsers(new Set());
+    }
+  }
+
+  function handleClearSelection() {
+    setSelectedUsers(new Set());
+  }
+
+  // Bulk operation handlers
+  function handleBulkEditRole() {
+    if (selectedUsers.size === 0) return;
+    setIsBulkOperation(true);
+    setNewRole("user");
+    setRoleDialogOpen(true);
+  }
+
+  function handleBulkBan() {
+    if (selectedUsers.size === 0) return;
+    setIsBulkOperation(true);
+    setBanDialogOpen(true);
+  }
+
+  function handleBulkUnban() {
+    if (selectedUsers.size === 0) return;
+
+    const userIds = Array.from(selectedUsers);
+    let completed = 0;
+    let failed = 0;
+
+    toast.promise(
+      Promise.all(
+        userIds.map(async (userId) => {
+          try {
+            await authClient.admin.unbanUser({ userId });
+            completed++;
+          } catch (error) {
+            failed++;
+            throw error;
+          }
+        }),
+      ).finally(() => {
+        queryClient.invalidateQueries({ queryKey: ["users"] });
+        setSelectedUsers(new Set());
+      }),
+      {
+        loading: `Unbanning ${userIds.length} users...`,
+        success: () => {
+          if (failed > 0) {
+            return `Unbanned ${completed} users (${failed} failed)`;
+          }
+          return `Successfully unbanned ${completed} users`;
+        },
+        error: "Failed to unban some users",
+      },
+    );
+  }
+
+  function confirmBan() {
     const expiresInSeconds = banExpiresIn
       ? Number.parseInt(banExpiresIn, 10) * 24 * 60 * 60
       : undefined;
 
-    banUserMutation.mutate({
-      userId: selectedUser.id,
-      banReason: banReason || undefined,
-      banExpiresIn: expiresInSeconds,
-    });
+    if (isBulkOperation) {
+      // Bulk ban operation
+      const userIds = Array.from(selectedUsers);
+      let completed = 0;
+      let failed = 0;
+
+      toast.promise(
+        Promise.all(
+          userIds.map(async (userId) => {
+            try {
+              await authClient.admin.banUser({
+                userId,
+                banReason: banReason || undefined,
+                banExpiresIn: expiresInSeconds,
+              });
+              completed++;
+            } catch (error) {
+              failed++;
+              throw error;
+            }
+          }),
+        ).finally(() => {
+          queryClient.invalidateQueries({ queryKey: ["users"] });
+          setSelectedUsers(new Set());
+          setBanDialogOpen(false);
+          setBanReason("");
+          setBanExpiresIn("");
+        }),
+        {
+          loading: `Banning ${userIds.length} users...`,
+          success: () => {
+            if (failed > 0) {
+              return `Banned ${completed} users (${failed} failed)`;
+            }
+            return `Successfully banned ${completed} users`;
+          },
+          error: "Failed to ban some users",
+        },
+      );
+    } else if (selectedUser) {
+      // Single user ban
+      banUserMutation.mutate({
+        userId: selectedUser.id,
+        banReason: banReason || undefined,
+        banExpiresIn: expiresInSeconds,
+      });
+    }
   }
 
   function confirmRoleChange() {
-    if (!selectedUser || !newRole) return;
-    setRoleMutation.mutate({
-      userId: selectedUser.id,
-      role: newRole,
-    });
+    if (!newRole) return;
+
+    if (isBulkOperation) {
+      // Bulk role change operation
+      const userIds = Array.from(selectedUsers);
+      let completed = 0;
+      let failed = 0;
+
+      toast.promise(
+        Promise.all(
+          userIds.map(async (userId) => {
+            try {
+              await authClient.admin.setRole({ userId, role: newRole });
+              completed++;
+            } catch (error) {
+              failed++;
+              throw error;
+            }
+          }),
+        ).finally(() => {
+          queryClient.invalidateQueries({ queryKey: ["users"] });
+          setSelectedUsers(new Set());
+          setRoleDialogOpen(false);
+          setNewRole("");
+        }),
+        {
+          loading: `Updating ${userIds.length} users...`,
+          success: () => {
+            if (failed > 0) {
+              return `Updated ${completed} users (${failed} failed)`;
+            }
+            return `Successfully updated ${completed} users`;
+          },
+          error: "Failed to update some users",
+        },
+      );
+    } else if (selectedUser) {
+      // Single user role change
+      setRoleMutation.mutate({
+        userId: selectedUser.id,
+        role: newRole,
+      });
+    }
   }
 
   function handleCancelBan() {
@@ -222,12 +381,23 @@ export function UsersTab() {
             </div>
           ) : (
             <>
+              <BulkActionsToolbar
+                selectedCount={selectedUsers.size}
+                onBulkEditRole={handleBulkEditRole}
+                onBulkBan={handleBulkBan}
+                onBulkUnban={handleBulkUnban}
+                onClearSelection={handleClearSelection}
+              />
+
               <UsersTable
                 users={data.users}
+                selectedUsers={selectedUsers}
                 onEditRole={handleEditRole}
                 onBanUser={handleBanUser}
                 onUnbanUser={handleUnbanUser}
                 isUnbanPending={unbanUserMutation.isPending}
+                onSelectUser={handleSelectUser}
+                onSelectAll={handleSelectAll}
               />
 
               <TablePagination
@@ -244,7 +414,11 @@ export function UsersTab() {
 
       <BanUserDialog
         open={banDialogOpen}
-        userName={selectedUser?.name}
+        userName={
+          isBulkOperation
+            ? `${selectedUsers.size} selected users`
+            : selectedUser?.name
+        }
         banReason={banReason}
         banExpiresIn={banExpiresIn}
         isPending={banUserMutation.isPending}
@@ -257,7 +431,11 @@ export function UsersTab() {
 
       <EditRoleDialog
         open={roleDialogOpen}
-        userName={selectedUser?.name}
+        userName={
+          isBulkOperation
+            ? `${selectedUsers.size} selected users`
+            : selectedUser?.name
+        }
         role={newRole}
         isPending={setRoleMutation.isPending}
         onOpenChange={setRoleDialogOpen}
