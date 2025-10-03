@@ -72,6 +72,11 @@ export function UsersTab() {
   const { data, isLoading, error } = useQuery({
     queryKey: ["users", page, limit, search, roleFilter, bannedFilter],
     queryFn: () => fetchUsers(page, limit, search, roleFilter, bannedFilter),
+    staleTime: 60_000, // Consider data fresh for 1 minute
+    gcTime: 5 * 60_000, // Keep unused data in cache for 5 minutes
+    refetchOnMount: true, // Refetch when component mounts
+    refetchOnWindowFocus: true, // Refetch when window regains focus
+    refetchOnReconnect: true, // Refetch when reconnecting
   });
 
   const banUserMutation = useMutation({
