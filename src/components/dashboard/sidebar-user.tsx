@@ -1,10 +1,17 @@
 "use client";
 
-import { Settings } from "lucide-react";
+import { MoreVertical } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
+import { UserRoleBadge } from "@/components/dashboard/tabs/users/user-role-badge";
 import { DiscordAuthButton } from "@/components/discord-auth-button";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { authClient } from "@/lib/auth-client";
 
 export function DashboardSidebarUser() {
@@ -13,11 +20,11 @@ export function DashboardSidebarUser() {
 
   if (!user) {
     return (
-      <div className="flex items-center justify-between gap-2 rounded-md border bg-background px-2 py-2">
-        <div className="flex min-w-0 items-center gap-2">
-          <Avatar className="size-8">
-            <AvatarFallback>?</AvatarFallback>
-          </Avatar>
+      <div className="flex items-center justify-between gap-3 px-2 py-2">
+        <div className="flex min-w-0 items-center gap-3">
+          <div className="flex size-10 items-center justify-center rounded-lg bg-muted">
+            <span className="text-sm font-medium">?</span>
+          </div>
           <div className="min-w-0">
             <div className="truncate text-sm font-medium">Guest</div>
           </div>
@@ -31,21 +38,40 @@ export function DashboardSidebarUser() {
   const initial = name.charAt(0).toUpperCase();
 
   return (
-    <div className="flex items-center justify-between gap-2 rounded-md border bg-background px-2 py-2">
-      <div className="flex min-w-0 items-center gap-2">
-        <Avatar className="size-8">
-          <AvatarImage src={user.image || ""} alt={name} />
-          <AvatarFallback>{initial}</AvatarFallback>
-        </Avatar>
-        <div className="min-w-0">
+    <div className="flex items-center justify-between gap-3 px-2 py-2">
+      <div className="flex min-w-0 flex-1 items-center gap-3">
+        {user.image ? (
+          <Image
+            src={user.image}
+            alt={name}
+            width={40}
+            height={40}
+            className="size-10 rounded-lg"
+          />
+        ) : (
+          <div className="flex size-10 items-center justify-center rounded-lg bg-muted">
+            <span className="text-sm font-medium">{initial}</span>
+          </div>
+        )}
+        <div className="min-w-0 flex-1">
           <div className="truncate text-sm font-medium">{name}</div>
+          <UserRoleBadge
+            role={(user as { role?: string | null }).role ?? null}
+          />
         </div>
       </div>
-      <Button asChild variant="ghost" size="icon" aria-label="Settings">
-        <Link href="/dashboard?tab=settings">
-          <Settings className="size-4" />
-        </Link>
-      </Button>
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <Button variant="ghost" size="icon" className="size-8">
+            <MoreVertical className="size-4" />
+          </Button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent align="end">
+          <DropdownMenuItem asChild>
+            <Link href="/dashboard?tab=settings">Settings</Link>
+          </DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
     </div>
   );
 }
