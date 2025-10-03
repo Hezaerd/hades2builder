@@ -1,6 +1,7 @@
-import type { NextRequest } from "next/request";
-import { NextResponse } from "next/server";
+import { type NextRequest, NextResponse } from "next/server";
 import { auth } from "@/lib/auth";
+
+export const runtime = "nodejs";
 
 const ADMIN_ONLY_TABS = ["users", "database"];
 
