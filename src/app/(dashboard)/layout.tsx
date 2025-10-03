@@ -23,14 +23,22 @@ import {
   SidebarSeparator,
   SidebarTrigger,
 } from "@/components/ui/sidebar";
+import { authClient } from "@/lib/auth-client";
 
 function SidebarContentComponent() {
   const [activeTab, setActiveTab] = useQueryState("tab", {
     defaultValue: "overview",
   });
+  const { data: session } = authClient.useSession();
+  const isAdmin = session?.user?.role === "admin";
+
+  // Filter items based on admin status
+  const filteredItems = dashboardSidebarItems.filter(
+    (item) => !item.adminOnly || isAdmin,
+  );
 
   // Group items by category
-  const itemsByCategory = dashboardSidebarItems.reduce(
+  const itemsByCategory = filteredItems.reduce(
     (acc, item) => {
       if (!acc[item.category]) {
         acc[item.category] = [];
@@ -38,7 +46,7 @@ function SidebarContentComponent() {
       acc[item.category].push(item);
       return acc;
     },
-    {} as Record<string, typeof dashboardSidebarItems>,
+    {} as Record<string, typeof filteredItems>,
   );
 
   return (

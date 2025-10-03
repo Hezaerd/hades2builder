@@ -6,6 +6,7 @@ export type SidebarItem = {
   href: string;
   tab: string;
   icon?: React.ComponentType<{ className?: string }>;
+  adminOnly?: boolean;
 };
 
 export const dashboardSidebarItems: SidebarItem[] = [
@@ -36,6 +37,7 @@ export const dashboardSidebarItems: SidebarItem[] = [
     href: "/dashboard?tab=users",
     tab: "users",
     icon: Users,
+    adminOnly: true,
   },
   {
     title: "Database Editor",
@@ -43,5 +45,6 @@ export const dashboardSidebarItems: SidebarItem[] = [
     href: "/dashboard?tab=database",
     tab: "database",
     icon: Database,
+    adminOnly: true,
   },
 ];
